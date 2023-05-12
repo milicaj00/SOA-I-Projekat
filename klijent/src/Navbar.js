@@ -1,27 +1,28 @@
 import AppBar from "@mui/material/AppBar";
-import { Container, Typography } from "@mui/material";
+import { Box, Typography, Toolbar } from "@mui/material";
 
 const Navbar = () => {
   return (
-    <AppBar>
-      <Container maxWidth="xl" sx={{padding:'1%'}}>
+    <Box>
+      <AppBar position="static">
+        <Toolbar className="cardCenter">
           <Typography
             variant="h6"
             component="a"
             href="/"
             sx={{
               fontFamily: "monospace",
-              fontWeight: 500,
+              fontWeight: 700,
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
-              textAlign:'center'
             }}
           >
             Maternal Health Risk
           </Typography>
-      </Container>
-    </AppBar>
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 };
 

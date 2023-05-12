@@ -18,3 +18,7 @@ code {
   align-items: center;
   justify-content: center;
 }
+
+.marginS {
+  margin: 5% 5%;
+}

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Box, Typography, TextField, Button, MenuItem } from "@mui/material";
-import { addData, updateData } from "./REST api/api";
+import { addData, changeData } from "./REST api/api";
 
 const categories = ["low risk", "mid risk", "high risk"];
 
@@ -12,12 +12,12 @@ const Forma = ({ data }) => {
       sx={{ gap: "1vh", padding: { sm: "10% 10%" }, alignItems: "stretch" }}
     >
       <Typography className="cardCenter" variant="h4">
-        {data === null ? "New Data" : "Modify Product"}
+        {data === null ? "New Data" : "Modify Data"}
       </Typography>
       <Box
         component="form"
         onSubmit={(event) => {
-          product === null ? addData(event) : updateData(event, data._id);
+          data === null ? addData(event) : changeData(event, data._id);
         }}
       >
         <TextField
@@ -90,7 +90,7 @@ const Forma = ({ data }) => {
           margin="dense"
           fullWidth
           size="small"
-          name="risklevel"
+          name="RiskLevel"
           variant="outlined"
           select
           defaultValue={data === null ? -1 : data.RiskLevel}

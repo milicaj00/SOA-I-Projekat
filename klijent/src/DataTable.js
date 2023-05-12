@@ -24,7 +24,6 @@ const header = [
   "HeartRate",
   "RiskLevel",
   "",
-  "",
 ];
 
 export const DataTable = () => {
@@ -45,7 +44,7 @@ export const DataTable = () => {
   }, []);
 
   return (
-    <Box>
+    <Box sx={{ m:"2%" }}>
       <Dialog
         open={change}
         onClose={async () => {
@@ -60,27 +59,31 @@ export const DataTable = () => {
         open={newdata}
         onClose={async () => {
           await handleNewData(false);
+          await setD(null);
           await getData(setData);
         }}
       >
-        <Forma data={data} />
+        <Forma data={d} />
       </Dialog>
-      <Button
-        size="medium"
-        variant="outlined"
-        onClick={() => handleNewData(true)}
-      >
-        new data
-      </Button>
 
       <Paper>
         <TableContainer>
           <Table>
             <TableHead>
               <TableRow>
-                {header.map((value) => {
-                  <TableCell sx={{ textAlign: "left" }}>{value}</TableCell>;
-                })}
+                {header.map((value) => (
+                  <TableCell sx={{ textAlign: "left" }}>{value}</TableCell>
+                ))}
+                <TableCell>
+                  <Button
+                    size="small"
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => handleNewData(true)}
+                  >
+                    new data
+                  </Button>
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -97,6 +100,7 @@ export const DataTable = () => {
                     <TableCell>
                       <Button
                         size="small"
+                        color="secondary"
                         variant="outlined"
                         onClick={() => {
                           setD(d);
@@ -112,7 +116,7 @@ export const DataTable = () => {
                         variant="outlined"
                         color="error"
                         onClick={async () => {
-                          await deleteData(p._id);
+                          await deleteData(d._id);
                           await getData(setData);
                         }}
                         startIcon={<DeleteIcon />}
