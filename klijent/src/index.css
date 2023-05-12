@@ -19,6 +19,17 @@ code {
   justify-content: center;
 }
 
+.cardCenterRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 .marginS {
   margin: 5% 5%;
+}
+
+.toolbar{
+  min-width: 48px !important;
 }

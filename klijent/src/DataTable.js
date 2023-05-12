@@ -87,7 +87,7 @@ export const DataTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.map((d, i) => (
+              {data?.map((d) => (
                 <Fragment key={d._id}>
                   <TableRow key={d._id}>
                     <TableCell>{d?.Age}</TableCell>

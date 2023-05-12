@@ -5,6 +5,8 @@ import Forma from "./Forma";
 import { Box, CssBaseline, createTheme } from "@mui/material";
 import { ThemeProvider } from "@mui/system";
 import { DataTable } from "./DataTable";
+import { BrowserRouter } from "react-router-dom";
+import MyRoutes from "./Routes";
 
 export const theme = createTheme({
   palette: {
@@ -30,11 +32,12 @@ export const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <>
+      <BrowserRouter>
         <Navbar />
         {/* <Forma data = {null} /> */}
-        <DataTable />
-      </>
+        {/* <DataTable /> */}
+        <MyRoutes />
+      </BrowserRouter>
     </ThemeProvider>
   );
 }
