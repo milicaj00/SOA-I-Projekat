@@ -5,6 +5,7 @@ import Forma from "./Forma";
 import { Box, CssBaseline, createTheme } from "@mui/material";
 import { ThemeProvider } from "@mui/system";
 import Main from "./Main";
+import { DataTable } from "./DataTable";
 
 export const theme = createTheme({
   palette: {
@@ -34,7 +35,7 @@ function App() {
       <Box className="App">
         <Navbar />
         <Forma />
-        <Main />
+        <DataTable />
       </Box>
     </ThemeProvider>
   );
