@@ -5,7 +5,7 @@ import { addData, changeData } from "./REST api/api";
 
 const categories = ["low risk", "mid risk", "high risk"];
 
-const Forma = ({ data }) => {
+const Forma = ({ data, onClick }) => {
   return (
     <Box
       className="cardCenter marginS"
@@ -17,7 +17,22 @@ const Forma = ({ data }) => {
       <Box
         component="form"
         onSubmit={(event) => {
-          data === null ? addData(event) : changeData(event, data._id);
+          event.preventDefault();
+          const formData = event.target;
+          const new_data = {
+            Age: formData.Age.value,
+            SystolicBP: formData.SystolicBP.value,
+            DiastolicBP: formData.DiastolicBP.value,
+            BS: formData.BS.value,
+            BodyTemp: formData.BodyTemp.value,
+            HeartRate: formData.HeartRate.value,
+            RiskLevel: formData.RiskLevel.value,
+          };
+          if (data) {
+            changeData(new_data, data._id);
+          } else {
+            addData(new_data);
+          }
         }}
       >
         <TextField

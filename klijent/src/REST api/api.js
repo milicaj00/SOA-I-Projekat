@@ -1,10 +1,21 @@
 import axios from "axios";
 
-export async function getData(setData) {
+export async function getData(setData, page, perPage, setDataLength) {
+  let pom = "?";
+  if (page) {
+    pom += `page=${page}&`;
+  }
+  if (perPage) {
+    pom += `perPage=${perPage}`;
+  }
   return await axios
-    .get("http://localhost:8080/get")
+    .get("http://localhost:8080/get" + pom)
     .then((data) => {
       setData(data.data.data);
+
+      if (setDataLength) {
+        setDataLength(data.data.perPage * data.data.totalPages);
+      }
       console.log(data.data.data);
     })
     .catch((error) => {
@@ -23,10 +34,8 @@ export async function deleteData(id) {
     });
 }
 
-export async function changeData(event, id) {
-  console.log(id);
-  event.preventDefault();
-  const data = new FormData(event.currentTarget);
+export async function changeData(data, id) {
+  console.log(data, id);
   return await axios
     .put("http://localhost:8080/update/" + id, data)
     .then((res) => {
@@ -37,11 +46,7 @@ export async function changeData(event, id) {
     });
 }
 
-export async function addData(event) {
-  event.preventDefault();
-  const data = new FormData(event.currentTarget);
-  console.log("data:");
-  console.log(data);
+export async function addData(data) {
   return await axios
     .post("http://localhost:8080/create", data)
     .then((res) => {

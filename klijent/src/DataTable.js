@@ -9,10 +9,11 @@ import {
   TableCell,
   TableBody,
   Dialog,
+  TablePagination,
 } from "@mui/material";
 import React, { Fragment, useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { deleteData, getData } from "./REST api/api";
+import { addData, deleteData, getData } from "./REST api/api";
 import Forma from "./Forma";
 
 const header = [
@@ -31,6 +32,9 @@ export const DataTable = () => {
   const [d, setD] = useState(null);
   const [change, setChangeData] = useState(false);
   const [newdata, setNewData] = useState(false);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [dataLength, setDataLength] = useState(0);
 
   const handleChange = (value) => {
     setChangeData(value);
@@ -40,17 +44,28 @@ export const DataTable = () => {
   };
 
   useEffect(() => {
-    getData(setData);
+    getData(setData, 0, 5, setDataLength);
   }, []);
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+    getData(setData, newPage, rowsPerPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+    getData(setData, 0, parseInt(event.target.value, 10));
+  };
+
   return (
-    <Box sx={{ m:"2%" }}>
+    <Box sx={{ m: "2%" }}>
       <Dialog
         open={change}
         onClose={async () => {
           await handleChange(false);
           await setD(null);
-          await getData(setData);
+          await getData(setData, page, rowsPerPage);
         }}
       >
         <Forma data={d} />
@@ -60,7 +75,7 @@ export const DataTable = () => {
         onClose={async () => {
           await handleNewData(false);
           await setD(null);
-          await getData(setData);
+          await getData(setData, page, rowsPerPage);
         }}
       >
         <Forma data={d} />
@@ -72,7 +87,9 @@ export const DataTable = () => {
             <TableHead>
               <TableRow>
                 {header.map((value) => (
-                  <TableCell sx={{ textAlign: "left" }}>{value}</TableCell>
+                  <TableCell key={value} sx={{ textAlign: "left" }}>
+                    {value}
+                  </TableCell>
                 ))}
                 <TableCell>
                   <Button
@@ -130,6 +147,15 @@ export const DataTable = () => {
             </TableBody>
           </Table>
         </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={dataLength}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       </Paper>
     </Box>
   );
