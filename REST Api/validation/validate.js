@@ -22,7 +22,7 @@ export const validate = async (req, res, next) => {
     errors.push({ RiskLevel: "Not valid RiskLevel" });
   }
   if (errors.length) {
-    return res.statur(422).json({ errors });
+    return res.status(422).json({ errors });
   }
   next();
 };

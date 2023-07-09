@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import router from "./routes/index.js";
+import cors from "cors";
 dotenv.config();
 
 mongoose
@@ -18,12 +19,12 @@ mongoose
 
 const app = express();
 app.use(express.json());
-
+app.use(cors());
 app.use(router);
 
 // app.get("/dodajSlike", (req, res) => {
 //   csv()
-//     .fromFile("C:/Users/milica/Desktop/Elfak/SOA/SOA I projekat/dataset.csv")
+//     .fromFile("C:/Users/milica/Downloads/data.csv")
 //     .then((jsonObj) => {
 //       try {
 //         Model.insertMany(jsonObj);
