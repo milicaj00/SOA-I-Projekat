@@ -1,10 +1,6 @@
 import mongoose from "mongoose";
 
 export const Model = new mongoose.model("Data", {
-  Id: {
-    type: Number,
-    required: false,
-  },
   Age: {
     type: Number,
   },
