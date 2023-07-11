@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+option csharp_namespace = "gRPC";
+
+message Data {
+  string id = 1;
+  int32 age = 2;
+  int32 systolicBP = 3;
+  int32 diastolicBP = 4;
+  float bs = 5;
+  int32 bodyTemp = 6;
+  int32 heartRate = 7;
+  string riskLevel = 8;
+  int32 v = 9;
+}
+message DataId {
+  string id = 1;
+}
+
+message None {}
+
+service DataService {
+  rpc GetAll(None) returns (stream Data);
+  rpc GetById(DataId) returns (Data);
+  rpc AddData(Data) returns (Data);
+  rpc UpdateData(Data) returns (Data);
+  rpc DeleteData(DataId) returns (None);
+}
+
+message GetAllResponse {
+  repeated Data datastream = 1;
+  string error = 2;
+}
+message GetByIdResponse {
+  Data data = 1;
+  string error = 2;
+}

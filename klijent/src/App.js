@@ -7,6 +7,8 @@ import { ThemeProvider } from "@mui/system";
 import { DataTable } from "./DataTable";
 import { BrowserRouter } from "react-router-dom";
 import MyRoutes from "./Routes";
+import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+
 
 export const theme = createTheme({
   palette: {
@@ -28,6 +30,8 @@ export const theme = createTheme({
     },
   },
 });
+
+
 
 function App() {
   return (
