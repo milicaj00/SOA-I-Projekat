@@ -68,7 +68,7 @@ export const DataTable = () => {
           await getData(setData, page, rowsPerPage);
         }}
       >
-        <Forma data={d} />
+        <Forma data={d} client={null} />
       </Dialog>
       <Dialog
         open={newdata}
@@ -78,7 +78,7 @@ export const DataTable = () => {
           await getData(setData, page, rowsPerPage);
         }}
       >
-        <Forma data={d} />
+        <Forma data={d} client={null}/>
       </Dialog>
 
       <Paper>

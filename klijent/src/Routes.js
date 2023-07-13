@@ -4,14 +4,14 @@ import { DataTable } from "./DataTable";
 import Forma from "./Forma";
 import FormGQL from "./GraphQL/FormGQL";
 import GraphQL from "./GraphQL/graphql";
-import MyComponent from "./gRPC/klijent";
+import GRPCClient from "./gRPC/klijent";
 
 const MyRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<DataTable />} />
-      <Route path="/grpc" element={<MyComponent/>} />
-      <Route path="/graphql" element={<FormGQL />} />
+      <Route path="/grpc" element={<GRPCClient/>} />
+      <Route path="/graphql" element={<GraphQL />} />
     </Routes>
   );
 };

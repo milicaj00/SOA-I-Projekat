@@ -22,6 +22,12 @@ public class DataServiceController : DataService.DataServiceBase
     public override async Task<Data> GetById(DataId request, ServerCallContext context)
     {
         var d = await _data.GetByIdAsync(request.Id);
+        
+        if (d == null)
+        {
+        throw new RpcException(new Status(StatusCode.NotFound, "Data not found"));
+        }
+
         return new Data{
             //Data = _mapper.Map<Model>(d)
             Id = d.Id,
@@ -91,6 +97,10 @@ public class DataServiceController : DataService.DataServiceBase
         newdata.SystolicBP = d.SystolicBP;
         newdata.DiastolicBP = d.DiastolicBP;
         newdata.HeartRate = d.HeartRate;
+        newdata.RiskLevel = d.RiskLevel;
+        newdata.Age =d.Age;
+        newdata.BS = d.Bs;
+        newdata.BodyTemp = d.BodyTemp;
 
         await _data.Update(d.Id,newdata);
         var d2=await _data.GetByIdAsync(d.Id);
