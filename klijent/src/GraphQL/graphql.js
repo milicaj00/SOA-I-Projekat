@@ -3,6 +3,7 @@ import { ApolloClient, InMemoryCache, useQuery, gql } from "@apollo/client";
 import { MaterialReactTable } from "material-react-table";
 import FormGQL from "./FormGQL";
 import { Box, Typography, Button, Dialog, TextField } from "@mui/material";
+import { QueryManager } from "@apollo/client/core/QueryManager";
 
 export const client = new ApolloClient({
   uri: "http://localhost:8080/graphql/",
@@ -19,15 +20,15 @@ const GET_ALL_DATA = gql`
   }
 `;
 
-function SendQuery(setData, query) {
-  const { data, loading, error } = useQuery(query);
-  setData(data.data);
-}
-
 const GraphQL = () => {
-  const { data, loading, error } = useQuery(GET_ALL_DATA);
+  // const { data, loading, error } = useQuery(GET_ALL_DATA);
   const [createModalOpen, setCreateModalOpen] = useState(false);
-  // const [data, setData] = useState([]);
+
+  const { data, loading, error, refetch } = useQuery(GET_ALL_DATA);
+
+  function SendQuery(query) {
+    
+  }
 
   const columns = useMemo(
     () => [
@@ -74,10 +75,14 @@ const GraphQL = () => {
 
   return (
     <>
-      {/* <Dialog open={createModalOpen}>
+      <Dialog open={createModalOpen} onClose={() => setCreateModalOpen(false)}>
         <Box
-          className="cardCenter marginS"
-          sx={{ gap: "1vh", padding: { sm: "10% 10%" }, alignItems: "stretch" }}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "1vh",
+            padding: { sm: "10% 10%" },
+          }}
         >
           <Typography className="cardCenter" variant="h4">
             New Query
@@ -86,8 +91,10 @@ const GraphQL = () => {
             component="form"
             onSubmit={(event) => {
               event.preventDefault();
-              const new_query = event.query;
-              SendQuery(setData, new_query);
+              const formData = event.target;
+              const new_query = formData.query.value;
+              console.log(new_query);
+              refetch(new_query);
             }}
           >
             <TextField
@@ -117,19 +124,19 @@ const GraphQL = () => {
             </Button>
           </Box>
         </Box>
-      </Dialog> */}
+      </Dialog>
       <MaterialReactTable
         columns={columns}
         data={data?.data ?? []}
-        // renderTopToolbarCustomActions={() => (
-        //   <Button
-        //     color="secondary"
-        //     onClick={() => setCreateModalOpen(true)}
-        //     variant="contained"
-        //   >
-        //     New Query
-        //   </Button>
-        // )}
+        renderTopToolbarCustomActions={() => (
+          <Button
+            color="secondary"
+            onClick={() => setCreateModalOpen(true)}
+            variant="contained"
+          >
+            New Query
+          </Button>
+        )}
       />
     </>
   );

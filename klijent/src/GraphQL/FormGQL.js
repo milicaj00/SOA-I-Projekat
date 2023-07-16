@@ -16,8 +16,6 @@ const header = [
   "RiskLevel",
 ];
 
-//MICO OVDE TREBA SAMO DA NAPRAVIS DA SE NA DUGME SALJE
-
 const FormGQL = ({ data, onClick }) => {
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;

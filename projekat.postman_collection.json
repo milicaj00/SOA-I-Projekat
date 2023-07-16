@@ -1,0 +1,124 @@
+{
+	"info": {
+		"_postman_id": "60b94572-b154-4886-bfad-d20a0c09c1f4",
+		"name": "SOA I projekat",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28550625",
+		"_collection_link": "https://blue-astronaut-118588.postman.co/workspace/New-Team-Workspace~cb974a69-3284-4f20-a29f-68417a57bb0c/collection/20979324-60b94572-b154-4886-bfad-d20a0c09c1f4?action=share&creator=28550625&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/get",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Age\": 9,\r\n    \"SystolicBP\": 9,\r\n    \"DiastolicBP\": 9,\r\n    \"BS\": 9,\r\n    \"BodyTemp\": 9,\r\n    \"HeartRate\": 9,\r\n    \"RiskLevel\": \"high risk\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Age\": 9,\r\n    \"SystolicBP\": 6,\r\n    \"DiastolicBP\": 9,\r\n    \"BS\": 9,\r\n    \"BodyTemp\": 9,\r\n    \"HeartRate\": 9,\r\n    \"RiskLevel\": \"high risk\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/update/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"update",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/delete/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"delete",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080"
+		}
+	]
+}

@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
-import router from "./routes/index.js";
+import router from "./routes/routes.js";
 import cors from "cors";
 // import csv from "csvtojson";
 // import { Model } from "./models/Model.js";
@@ -10,11 +10,11 @@ import cors from "cors";
 // import { typeDefs } from "./gql/schema.graphql.js";
 // const resolvers = require("./gql/resolver.graphql");
 // const typeDefs = require("./gql/schema.graphql");
+import swaggerUi from "swagger-ui-express";
+import swaggerJsdoc from "swagger-jsdoc";
+import { graphqlHTTP } from "express-graphql";
 
-
-import { graphqlHTTP } from "express-graphql"
- 
-import schema from './graphql.js'
+import schema from "./graphql.js";
 
 dotenv.config();
 
@@ -30,25 +30,40 @@ mongoose
     console.error("Error connecting to MongoDB", { error });
   });
 
+const swaggerOptions = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "SOA I projekat",
+      version: "1.0.0",
+      description: "Maternal Health Risks ",
+    },
+  },
+  apis: ["./routes/routes.js"],
+};
+
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
+
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(router);
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    //directing express-graphql to use this schema to map out the graph
 
-app.use('/graphql', graphqlHTTP({
- 
-  //directing express-graphql to use this schema to map out the graph
+    schema,
 
-  schema,
+    //directing express-graphql to use graphiql when goto '/graphql' address in the browser
 
-  //directing express-graphql to use graphiql when goto '/graphql' address in the browser
+    //which provides an interface to make GraphQl queries
 
-  //which provides an interface to make GraphQl queries
-
-  graphiql:true
-
-}));
+    graphiql: true,
+  })
+);
 
 // let apolloServer = null;
 // async function startServer() {
@@ -61,19 +76,6 @@ app.use('/graphql', graphqlHTTP({
 // }
 // startServer();
 
-// app.get("/dodajSlike", (req, res) => {
-//   csv()
-//     .fromFile("C:/Users/milica/Downloads/data.csv")
-//     .then((jsonObj) => {
-//       try {
-//         Model.insertMany(jsonObj);
-//         res.status(200).json("success");
-//       } catch (err) {
-//         console.log("err ", err);
-//         res.status(500);
-//       }
-//     });
-// });
 
 app.listen(8080, () => {
   console.log("Server is listening on port 8080.");
